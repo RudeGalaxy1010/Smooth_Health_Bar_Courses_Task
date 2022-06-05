@@ -621,12 +621,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1310103473}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: TakeDamage
+        m_MethodName: TakeHeal
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -10
+          m_IntArgument: 10
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

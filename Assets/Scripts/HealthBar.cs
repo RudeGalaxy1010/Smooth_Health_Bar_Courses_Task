@@ -13,24 +13,25 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         _image = GetComponent<Image>();
-        _player.OnHealthRatioChanged += UpdateTargetValue;
-        UpdateTargetValue(1);
+        OnHealthRatioChanged(1);
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        _player.OnHealthRatioChanged -= UpdateTargetValue;
+        _player.HealthRatioChanged += OnHealthRatioChanged;
+    }
+
+    private void OnDisable()
+    {
+        _player.HealthRatioChanged -= OnHealthRatioChanged;
     }
 
     private void Update()
     {
-        if (_image.fillAmount != _targetValue)
-        {
-            _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, _targetValue, _updateSpeed * Time.deltaTime);
-        }
+        _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, _targetValue, _updateSpeed * Time.deltaTime);
     }
 
-    private void UpdateTargetValue(float value)
+    private void OnHealthRatioChanged(float value)
     {
         _targetValue = value;
     }
