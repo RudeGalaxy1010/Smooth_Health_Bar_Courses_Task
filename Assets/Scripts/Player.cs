@@ -3,7 +3,8 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _maxHealth;
+    private const float MinHealth = 0;
+    private const float MaxHealth = 100;
 
     private float _health;
 
@@ -11,7 +12,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        _health = _maxHealth;
+        _health = MaxHealth;
     }
 
     public void TakeDamage(int value)
@@ -21,8 +22,8 @@ public class Player : MonoBehaviour
             return;
         }
 
-        _health = Mathf.Clamp(_health - value, 0, _maxHealth);
-        HealthRatioChanged?.Invoke(_health / _maxHealth);
+        _health = Mathf.Clamp(_health - value, MinHealth, MaxHealth);
+        HealthRatioChanged?.Invoke(_health / MaxHealth);
     }
 
     public void TakeHeal(int value)
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        _health = Mathf.Clamp(_health + value, 0, _maxHealth);
-        HealthRatioChanged?.Invoke(_health / _maxHealth);
+        _health = Mathf.Clamp(_health + value, MinHealth, MaxHealth);
+        HealthRatioChanged?.Invoke(_health / MaxHealth);
     }
 }

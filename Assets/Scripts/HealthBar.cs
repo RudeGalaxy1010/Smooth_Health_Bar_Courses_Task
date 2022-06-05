@@ -5,6 +5,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class HealthBar : MonoBehaviour
 {
+    private const float MaxValue = 1;
+
     [SerializeField] private Player _player;
     [SerializeField] private float _updateSpeed;
 
@@ -24,7 +26,7 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         _image = GetComponent<Image>();
-        OnHealthRatioChanged(1);
+        OnHealthRatioChanged(MaxValue);
     }
 
     private void OnHealthRatioChanged(float value)
