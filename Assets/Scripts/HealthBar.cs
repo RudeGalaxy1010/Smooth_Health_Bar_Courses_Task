@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +11,6 @@ public class HealthBar : MonoBehaviour
     private Image _image;
     private float _targetValue;
 
-    private void Start()
-    {
-        _image = GetComponent<Image>();
-        OnHealthRatioChanged(1);
-    }
-
     private void OnEnable()
     {
         _player.HealthRatioChanged += OnHealthRatioChanged;
@@ -26,13 +21,24 @@ public class HealthBar : MonoBehaviour
         _player.HealthRatioChanged -= OnHealthRatioChanged;
     }
 
-    private void Update()
+    private void Start()
     {
-        _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, _targetValue, _updateSpeed * Time.deltaTime);
+        _image = GetComponent<Image>();
+        OnHealthRatioChanged(1);
     }
 
     private void OnHealthRatioChanged(float value)
     {
         _targetValue = value;
+        StartCoroutine(UpdateImageFill());
+    }
+
+    private IEnumerator UpdateImageFill() 
+    {
+        while (_image.fillAmount != _targetValue)
+        {
+            _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, _targetValue, _updateSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 }
